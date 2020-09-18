@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import JSZip from "jszip";
 import throttle from "lodash.throttle";
+import { saveAs } from "file-saver";
 
 export default function App() {
   const inputRef = useRef(null);
@@ -26,17 +27,14 @@ export default function App() {
     zip
       .generateAsync({ type: "blob" }, throttledZipUpdate)
       .then(function (content) {
+        saveAs(content, "hello.zip");
+
         const formData = new FormData();
         formData.append("folderzip", content);
         console.log("ready to send to server", content);
-        fetch("https://csb-wlq9m.vercel.app", {
-          method: "post",
-          body: formData
-        });
       })
       .catch((e) => console.log(e));
   };
-
   return (
     <div className="App">
       <h1>Folder upload</h1>

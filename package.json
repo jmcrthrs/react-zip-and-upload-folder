@@ -1,13 +1,11 @@
 {
-  "name": "react",
+  "name": "react-folder-zip-upload",
   "version": "1.0.0",
-  "description": "React example starter project",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "file-saver": "2.0.2",
     "jszip": "3.5.0",
     "lodash.throttle": "4.1.1",
     "react": "16.13.1",
