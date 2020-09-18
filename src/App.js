@@ -14,7 +14,7 @@ export default function App() {
       console.log("current file = " + metadata.currentFile);
     }
   };
-  const throttledZipUpdate = throttle(onZipUpdate, 500);
+  const throttledZipUpdate = throttle(onZipUpdate, 50);
 
   const onZip = () => {
     const zip = new JSZip();
