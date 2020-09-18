@@ -29,10 +29,10 @@ export default function App() {
         const formData = new FormData();
         formData.append("folderzip", content);
         console.log("ready to send to server", content);
-        for (var value of formData.values()) {
-          console.log(value);
-        }
-        fetch();
+        fetch("https://csb-wlq9m.vercel.app", {
+          method: "post",
+          body: formData
+        });
       })
       .catch((e) => console.log(e));
   };
