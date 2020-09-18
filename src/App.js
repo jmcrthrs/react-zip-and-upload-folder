@@ -29,6 +29,10 @@ export default function App() {
         const formData = new FormData();
         formData.append("folderzip", content);
         console.log("ready to send to server", content);
+        for (var value of formData.values()) {
+          console.log(value);
+        }
+        fetch();
       })
       .catch((e) => console.log(e));
   };
