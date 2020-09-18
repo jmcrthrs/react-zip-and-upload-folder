@@ -27,7 +27,7 @@ export default function App() {
     zip
       .generateAsync({ type: "blob" }, throttledZipUpdate)
       .then(function (content) {
-        saveAs(content, "hello.zip");
+        saveAs(content, "files.zip");
 
         const formData = new FormData();
         formData.append("folderzip", content);
