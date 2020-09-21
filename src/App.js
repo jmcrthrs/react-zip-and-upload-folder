@@ -54,7 +54,7 @@ export default function App() {
           <div>
             <button
               onClick={() => {
-                onZip(Array.from(inputRef.current.files));
+                onZip(files);
               }}
             >
               zip {files.length} files
@@ -65,7 +65,9 @@ export default function App() {
           </progress>
           <h3>Selected Files</h3>
           {files.map((file) => (
-            <div key={file.webkitRelativePath}>{file.webkitRelativePath}</div>
+            <div key={file.webkitRelativePath || file.path}>
+              {file.webkitRelativePath || file.path}
+            </div>
           ))}
         </div>
       )}
