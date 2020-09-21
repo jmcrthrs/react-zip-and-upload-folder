@@ -1,40 +1,9 @@
 import React, { useRef, useState } from "react";
-import JSZip from "jszip";
-import throttle from "lodash.throttle";
-import { saveAs } from "file-saver";
 import Dropzone from "react-dropzone";
 
 export default function App() {
   const inputRef = useRef(null);
-  const [progress, setProgress] = useState(-1);
   const [files, setFiles] = useState([]);
-
-  const onZipUpdate = (metadata) => {
-    setProgress(metadata.percent);
-    console.log("progression: " + metadata.percent.toFixed(2) + " %");
-    if (metadata.currentFile) {
-      console.log("current file = " + metadata.currentFile);
-    }
-  };
-  const throttledZipUpdate = throttle(onZipUpdate, 50);
-
-  const onZip = (files) => {
-    const zip = new JSZip();
-
-    files.forEach((file) => {
-      zip.file(file.webkitRelativePath || file.path, file);
-    });
-    zip
-      .generateAsync({ type: "blob" }, throttledZipUpdate)
-      .then(function (content) {
-        saveAs(content, "files.zip");
-
-        const formData = new FormData();
-        formData.append("folderzip", content);
-        console.log("ready to send to server", content);
-      })
-      .catch((e) => console.log(e));
-  };
 
   return (
     <div className="App">
@@ -51,18 +20,6 @@ export default function App() {
       />
       {files.length && (
         <div>
-          <div>
-            <button
-              onClick={() => {
-                onZip(files);
-              }}
-            >
-              zip {files.length} files
-            </button>
-          </div>
-          <progress max="100" value={progress}>
-            {progress?.toFixed(2)}%{" "}
-          </progress>
           <h3>Selected Files</h3>
           {files.map((file) => (
             <div key={file.webkitRelativePath || file.path}>
@@ -71,7 +28,6 @@ export default function App() {
           ))}
         </div>
       )}
-
       <h2>DropzoneJs</h2>
       <Dropzone
         onDrop={(acceptedFiles) => {
@@ -91,13 +47,6 @@ export default function App() {
           </section>
         )}
       </Dropzone>
-      <button
-        onClick={() => {
-          onZip(files);
-        }}
-      >
-        zip {files.length} files
-      </button>
     </div>
   );
 }
